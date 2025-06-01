@@ -1,4 +1,4 @@
-# Saudi Arabia Demographics Dashboard 🇸🇦
+# Saudi Arabia Demographics Dashboard
 
 ![Dashboard Preview](https://img.shields.io/badge/Status-Active-brightgreen)
 ![Version](https://img.shields.io/badge/Version-1.0.0-blue)
