@@ -607,14 +607,13 @@ We welcome contributions!.
 - **Saudi Arabia Vision 2030** for inspiring the demographic focus
 
 ## 📞 Support
-- **Email**:alhenakiaa@gmail.com
+- **Email**: alhenakiaa@gmail.com
 
 ---
 
 <div align="center">
 
-**Built with ❤️ for Saudi Arabia's Digital Transformation**
 
-[⭐ Star this repo](https://github.com/your-username/saudi-demographics-dashboard) | [🐛 Report Bug](https://github.com/Anood3n/saudi-demographics-dashboard/issues) | [💡 Request Feature](https://github.com/Anood3n/saudi-demographics-dashboard/issues)
+[⭐ Star this repo](https://github.com/Anood3n/saudi-demographics-dashboard) | [🐛 Report Bug](https://github.com/Anood3n/saudi-demographics-dashboard/issues) | [💡 Request Feature](https://github.com/Anood3n/saudi-demographics-dashboard/issues)
 
 </div>
