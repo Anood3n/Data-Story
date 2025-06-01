@@ -1,448 +1,140 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Saudi Arabia Demographics Dashboard - Technical Documentation</title>
-    <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+# Saudi Arabia Demographics Dashboard 🇸🇦
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background: #f8f9fa;
-        }
+![Dashboard Preview](https://img.shields.io/badge/Status-Active-brightgreen)
+![Version](https://img.shields.io/badge/Version-1.0.0-blue)
+![License](https://img.shields.io/badge/License-MIT-yellow)
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-            background: white;
-            box-shadow: 0 0 20px rgba(0,0,0,0.1);
-            min-height: 100vh;
-        }
+> An interactive, scroll-driven data visualization dashboard presenting Saudi Arabia's demographic data through multiple chart types and animations.
 
-        .header {
-            text-align: center;
-            padding: 40px 0;
-            background: linear-gradient(135deg, #1d4289 0%, #0a965f 100%);
-            color: white;
-            margin: -20px -20px 40px -20px;
-            border-radius: 0 0 20px 20px;
-        }
+## 🌟 Key Features
 
-        .header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-        }
+- **📊 Six Interactive Visualizations** - Multiple chart types including stacked bars, population pyramids, geographic maps, and comparison charts
+- **🔄 Scroll-triggered Animations** - Smooth transitions between different data views using Scrollama.js
+- **🌐 Arabic RTL Support** - Proper right-to-left text rendering and layout for Arabic content
+- **📱 Responsive Design** - Glassmorphism UI effects with responsive layouts across all devices
+- **💡 Real-time Tooltips** - Interactive hover states with detailed information tooltips
+- **📖 Progressive Disclosure** - Information revealed gradually through scrolling for engaging storytelling
 
-        .header p {
-            font-size: 1.2rem;
-            opacity: 0.9;
-        }
+## 🚀 Live Demo
 
-        .toc {
-            background: #f8f9fa;
-            padding: 30px;
-            border-radius: 10px;
-            margin-bottom: 40px;
-            border-left: 5px solid #1d4289;
-        }
+[View Live Dashboard](https://your-demo-link.com) | [Documentation](https://your-docs-link.com)
 
-        .toc h2 {
-            color: #1d4289;
-            margin-bottom: 20px;
-            font-size: 1.5rem;
-        }
+## 📋 Table of Contents
 
-        .toc ul {
-            list-style: none;
-            columns: 2;
-            column-gap: 40px;
-        }
+- [Technology Stack](#-technology-stack)
+- [Installation](#-installation)
+- [Project Structure](#-project-structure)
+- [Data Architecture](#-data-architecture)
+- [Core Systems](#-core-systems)
+- [Chart Implementation](#-chart-implementation)
+- [Styling System](#-styling-system)
+- [Interactive Features](#-interactive-features)
+- [Performance](#-performance)
+- [API Reference](#-api-reference)
+- [Development Guidelines](#-development-guidelines)
+- [Troubleshooting](#-troubleshooting)
+- [Contributing](#-contributing)
+- [License](#-license)
 
-        .toc li {
-            margin-bottom: 8px;
-            break-inside: avoid;
-        }
+## 🛠 Technology Stack
 
-        .toc a {
-            color: #333;
-            text-decoration: none;
-            padding: 5px 10px;
-            border-radius: 5px;
-            transition: all 0.3s ease;
-            display: block;
-        }
+| Technology | Version | Purpose |
+|------------|---------|---------|
+| **D3.js** | 7.8.5 | Data visualization and DOM manipulation |
+| **Scrollama.js** | 3.2.0 | Scroll-triggered events |
+| **HTML5** | - | Document structure |
+| **CSS3** | - | Styling and animations |
+| **JavaScript ES6+** | - | Application logic |
 
-        .toc a:hover {
-            background: #1d4289;
-            color: white;
-            transform: translateX(5px);
-        }
+## 💾 Installation
 
-        .section {
-            margin-bottom: 50px;
-            scroll-margin-top: 20px;
-        }
+### Prerequisites
 
-        .section h2 {
-            color: #1d4289;
-            font-size: 2rem;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 3px solid #1d4289;
-        }
+- Modern web browser with ES6+ support
+- Local web server (for development)
 
-        .section h3 {
-            color: #0a965f;
-            font-size: 1.5rem;
-            margin: 30px 0 15px 0;
-            padding-left: 15px;
-            border-left: 4px solid #0a965f;
-        }
+### Quick Start
 
-        .section h4 {
-            color: #c99c2d;
-            font-size: 1.2rem;
-            margin: 20px 0 10px 0;
-            font-weight: 600;
-        }
+1. **Clone the repository**
+```bash
+git clone https://github.com/your-username/saudi-demographics-dashboard.git
+cd saudi-demographics-dashboard
+```
 
-        .section p {
-            margin-bottom: 15px;
-            text-align: justify;
-        }
+2. **Serve the files**
+```bash
+# Using Python
+python -m http.server 8000
 
-        .code-block {
-            background: #f8f9fa;
-            border: 1px solid #e9ecef;
-            border-radius: 8px;
-            padding: 20px;
-            margin: 20px 0;
-            overflow-x: auto;
-            position: relative;
-        }
+# Using Node.js
+npx serve .
 
-        .code-block::before {
-            content: attr(data-lang);
-            position: absolute;
-            top: 8px;
-            right: 12px;
-            background: #1d4289;
-            color: white;
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-size: 0.8rem;
-            font-weight: bold;
-        }
+# Using PHP
+php -S localhost:8000
+```
 
-        .code-block pre {
-            margin: 0;
-            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
-            font-size: 0.9rem;
-            line-height: 1.4;
-            white-space: pre-wrap;
-            word-break: break-word;
-        }
+3. **Open in browser**
+```
+http://localhost:8000
+```
 
-        .table-container {
-            overflow-x: auto;
-            margin: 20px 0;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
+### CDN Dependencies
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            background: white;
-        }
+The project uses these external libraries via CDN:
 
-        th, td {
-            padding: 12px 15px;
-            text-align: left;
-            border-bottom: 1px solid #e9ecef;
-        }
+```html
+<!-- D3.js for data visualization -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
 
-        th {
-            background: #1d4289;
-            color: white;
-            font-weight: 600;
-        }
+<!-- Scrollama.js for scroll interactions -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/scrollama/3.2.0/scrollama.min.js"></script>
+```
 
-        tr:hover {
-            background: #f8f9fa;
-        }
+## 📁 Project Structure
 
-        .alert {
-            padding: 15px 20px;
-            margin: 20px 0;
-            border-radius: 8px;
-            border-left: 5px solid;
-        }
-
-        .alert-info {
-            background: #e3f2fd;
-            border-color: #2196f3;
-            color: #1565c0;
-        }
-
-        .alert-warning {
-            background: #fff3e0;
-            border-color: #ff9800;
-            color: #ef6c00;
-        }
-
-        .feature-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            margin: 20px 0;
-        }
-
-        .feature-card {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            border: 1px solid #e9ecef;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-        }
-
-        .feature-card h4 {
-            color: #1d4289;
-            margin-bottom: 10px;
-        }
-
-        .back-to-top {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: #1d4289;
-            color: white;
-            padding: 10px 15px;
-            border-radius: 50px;
-            text-decoration: none;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-            transition: all 0.3s ease;
-        }
-
-        .back-to-top:hover {
-            background: #0a965f;
-            transform: translateY(-2px);
-        }
-
-        @media (max-width: 768px) {
-            .toc ul {
-                columns: 1;
-            }
-            
-            .header h1 {
-                font-size: 1.8rem;
-            }
-            
-            .container {
-                padding: 10px;
-            }
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <div class="header">
-            <h1>Saudi Arabia Demographics Dashboard</h1>
-            <p>Technical Documentation</p>
-        </div>
-
-        <div class="toc">
-            <h2>Table of Contents</h2>
-            <ul>
-                <li><a href="#project-overview">1. Project Overview</a></li>
-                <li><a href="#architecture">2. Architecture</a></li>
-                <li><a href="#dependencies">3. Dependencies</a></li>
-                <li><a href="#data-structures">4. Data Structures</a></li>
-                <li><a href="#core-systems">5. Core Systems</a></li>
-                <li><a href="#chart-implementation">6. Chart Implementation Guide</a></li>
-                <li><a href="#styling-system">7. Styling System</a></li>
-                <li><a href="#interactive-features">8. Interactive Features</a></li>
-                <li><a href="#performance">9. Performance Optimization</a></li>
-                <li><a href="#api-reference">10. API Reference</a></li>
-                <li><a href="#development-guidelines">11. Development Guidelines</a></li>
-                <li><a href="#troubleshooting">12. Troubleshooting</a></li>
-            </ul>
-        </div>
-
-        <section id="project-overview" class="section">
-            <h2>1. Project Overview</h2>
-            
-            <h3>Description</h3>
-            <p>An interactive, scroll-driven data visualization dashboard presenting Saudi Arabia's demographic data through multiple chart types and animations.</p>
-
-            <h3>Key Features</h3>
-            <div class="feature-grid">
-                <div class="feature-card">
-                    <h4>Scroll-triggered animations</h4>
-                    <p>Using Scrollama.js for smooth transitions between different data views as users scroll through the content.</p>
-                </div>
-                <div class="feature-card">
-                    <h4>Six interactive visualizations</h4>
-                    <p>Multiple chart types including stacked bars, population pyramids, geographic maps, and comparison charts.</p>
-                </div>
-                <div class="feature-card">
-                    <h4>Arabic RTL support</h4>
-                    <p>Proper right-to-left text rendering and layout for Arabic content with cultural considerations.</p>
-                </div>
-                <div class="feature-card">
-                    <h4>Responsive design</h4>
-                    <p>Glassmorphism UI effects with responsive layouts that work across different screen sizes.</p>
-                </div>
-                <div class="feature-card">
-                    <h4>Real-time tooltips</h4>
-                    <p>Interactive hover states with detailed information tooltips for enhanced user experience.</p>
-                </div>
-                <div class="feature-card">
-                    <h4>Progressive disclosure</h4>
-                    <p>Information is revealed gradually through scrolling, creating an engaging storytelling experience.</p>
-                </div>
-            </div>
-
-            <h3>Technology Stack</h3>
-            <div class="table-container">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Technology</th>
-                            <th>Version</th>
-                            <th>Purpose</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>D3.js</td>
-                            <td>7.8.5</td>
-                            <td>Data visualization and DOM manipulation</td>
-                        </tr>
-                        <tr>
-                            <td>Scrollama.js</td>
-                            <td>3.2.0</td>
-                            <td>Scroll-triggered events</td>
-                        </tr>
-                        <tr>
-                            <td>HTML5</td>
-                            <td>-</td>
-                            <td>Document structure</td>
-                        </tr>
-                        <tr>
-                            <td>CSS3</td>
-                            <td>-</td>
-                            <td>Styling and animations</td>
-                        </tr>
-                        <tr>
-                            <td>JavaScript ES6+</td>
-                            <td>-</td>
-                            <td>Application logic</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>
-
-        <section id="architecture" class="section">
-            <h2>2. Architecture</h2>
-
-            <h3>File Structure</h3>
-            <div class="code-block" data-lang="text">
-                <pre>project/
+```
+saudi-demographics-dashboard/
 ├── index.html              # Main HTML document
-├── styles/
-│   └── embedded.css        # Embedded in &lt;style&gt; tags
-├── scripts/
-│   ├── data.js            # Embedded demographic data
-│   ├── charts.js          # Chart rendering functions
-│   └── interactions.js    # Event handlers
-└── assets/
-    └── polygon-data.js    # Saudi Arabia border coordinates</pre>
-            </div>
+├── README.md               # Project documentation
+├── LICENSE                 # MIT License
+├── docs/                   # Additional documentation
+│   ├── API.md             # API documentation
+│   └── CONTRIBUTING.md    # Contributing guidelines
+├── assets/                 # Static assets
+│   ├── images/            # Screenshots and images
+│   └── data/              # Data files
+├── src/                   # Source code (if separated)
+│   ├── styles/            # CSS files
+│   ├── scripts/           # JavaScript modules
+│   └── data/              # Data processing scripts
+└── examples/              # Usage examples
+    ├── basic-usage.html
+    └── custom-charts.html
+```
 
-            <h3>Component Hierarchy</h3>
-            <div class="code-block" data-lang="text">
-                <pre>App
-├── Header
-├── IntroSection
-├── ScrollySection
-│   ├── StickyGraphic
-│   │   └── ChartContainer (Dynamic)
-│   └── Article
-│       ├── Step1 (Welcome)
-│       ├── Step2 (Population Composition)
-│       ├── Step3 (Age/Gender Distribution)
-│       ├── Step4 (Geographic Distribution)
-│       ├── Step5 (Services Analysis)
-│       └── Step6 (Strategic Recommendations)
-└── CTASection
-    ├── InvestmentCard
-    ├── YouthCard
-    └── DiversityCard</pre>
-            </div>
-        </section>
+## 🗄 Data Architecture
 
-        <section id="dependencies" class="section">
-            <h2>3. Dependencies</h2>
+### Primary Data Structure
 
-            <h3>External Libraries</h3>
+The dashboard uses a comprehensive data object containing demographic information:
 
-            <h4>D3.js</h4>
-            <div class="code-block" data-lang="html">
-                <pre>&lt;script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"&gt;&lt;/script&gt;</pre>
-            </div>
-            <p><strong>Purpose:</strong> Data visualization, DOM manipulation, animations</p>
-            <p><strong>Key Modules Used:</strong></p>
-            <ul>
-                <li><code>d3.select()</code> - DOM selection</li>
-                <li><code>d3.scale*()</code> - Data scaling functions</li>
-                <li><code>d3.transition()</code> - Smooth animations</li>
-                <li><code>d3.axis*()</code> - Automatic axis generation</li>
-            </ul>
-
-            <h4>Scrollama.js</h4>
-            <div class="code-block" data-lang="html">
-                <pre>&lt;script src="https://cdnjs.cloudflare.com/ajax/libs/scrollama/3.2.0/scrollama.min.js"&gt;&lt;/script&gt;</pre>
-            </div>
-            <p><strong>Purpose:</strong> Intersection Observer-based scroll triggering</p>
-            <div class="code-block" data-lang="javascript">
-                <pre>const scroller = scrollama();
-scroller.setup({
-  step: ".step",
-  offset: 0.5,
-  debug: false
-});</pre>
-            </div>
-        </section>
-
-        <section id="data-structures" class="section">
-            <h2>4. Data Structures</h2>
-
-            <h3>Primary Data Object</h3>
-            <div class="code-block" data-lang="javascript">
-                <pre>const data = {
+```javascript
+const data = {
+  // Population composition over time
   composition: {
     2023: { مواطنون: 20, مقيمون: 10, زوار: 5 },
     2024: { مواطنون: 22, مقيمون: 12, زوار: 6 },
     2025: { مواطنون: 24, مقيمون: 14, زوار: 8 }
   },
   
+  // Age and gender distribution
   ageGender: {
-    ذكور: [5, 8, 7, 5, 3, 2, 1],
-    إناث: [4.5, 7, 6, 4.5, 3, 2, 1.5],
+    ذكور: [5, 8, 7, 5, 3, 2, 1],      // Males by age group
+    إناث: [4.5, 7, 6, 4.5, 3, 2, 1.5], // Females by age group
     الفئات: ['0-14', '15-24', '25-34', '35-44', '45-54', '55-64', '65+']
   },
   
+  // Regional population data
   regions: {
     الرياض: 8.5,
     مكة: 9.2,
@@ -452,57 +144,59 @@ scroller.setup({
     جازان: 1.9
   },
   
+  // Services and infrastructure
   services: {
     الرياض: { السكان: 8.5, مدارس: 2000, مستشفيات: 50 },
-    مكة: { السكان: 9.2, مدارس: 1800, مستشفيات: 45 },
+    مكة: { السكان: 9.2, مدارس: 1800, مستشفيات: 45 }
     // ... additional regions
   }
-};</pre>
-            </div>
+};
+```
 
-            <h3>Geographic Data</h3>
-            <div class="code-block" data-lang="javascript">
-                <pre>const saudiCities = [
+### Geographic Data
+
+```javascript
+// City coordinates and population
+const saudiCities = [
   {
     name: "الرياض",
     population: 8.5,
     lat: 24.7136,
     lng: 46.6753,
     region: "الرياض"
-  },
+  }
   // ... additional cities
 ];
 
+// Saudi Arabia border polygon (1000+ coordinate points)
 const saudi_arabia_polygon = [
   {"lng": 34.4571718, "lat": 27.9005095},
-  {"lng": 34.4619585, "lat": 27.871923},
-  // ... 1000+ coordinate points
-];</pre>
-            </div>
-        </section>
+  {"lng": 34.4619585, "lat": 27.871923}
+  // ... precise border coordinates
+];
+```
 
-        <section id="core-systems" class="section">
-            <h2>5. Core Systems</h2>
+## ⚙ Core Systems
 
-            <h3>1. Scroll Management System</h3>
+### 1. Scroll Management System
 
-            <h4>Initialization</h4>
-            <div class="code-block" data-lang="javascript">
-                <pre>function init() {
+The dashboard uses Scrollama.js for intersection observer-based scroll triggering:
+
+```javascript
+// Initialize scroll listener
+function init() {
   scroller.setup({
     step: ".step",           // Elements that trigger changes
-    offset: 0.5,            // Trigger point (50% visibility)
+    offset: 0.5,            // Trigger at 50% visibility
     debug: false            // Development mode
   }).onStepEnter(handleStep);
   
   drawChart(1);             // Initial chart
   window.addEventListener("resize", handleResize);
-}</pre>
-            </div>
+}
 
-            <h4>Event Handler</h4>
-            <div class="code-block" data-lang="javascript">
-                <pre>function handleStep(response) {
+// Handle scroll events
+function handleStep(response) {
   // Update active states
   document.querySelectorAll(".step")
     .forEach(s => s.classList.remove("is-active"));
@@ -510,14 +204,15 @@ const saudi_arabia_polygon = [
   
   // Trigger chart update
   drawChart(response.index + 1);
-}</pre>
-            </div>
+}
+```
 
-            <h3>2. Chart Rendering System</h3>
+### 2. Chart Rendering Engine
 
-            <h4>Main Rendering Function</h4>
-            <div class="code-block" data-lang="javascript">
-                <pre>function drawChart(step) {
+Dynamic chart rendering based on scroll position:
+
+```javascript
+function drawChart(step) {
   currentChart = step;
   
   // Clear previous chart
@@ -539,14 +234,16 @@ const saudi_arabia_polygon = [
     case 5: renderServices(svg, width, height); break;
     case 6: renderSummary(svg, width, height); break;
   }
-}</pre>
-            </div>
+}
+```
 
-            <h3>3. Animation System</h3>
+### 3. Animation System
 
-            <h4>Transition Configuration</h4>
-            <div class="code-block" data-lang="javascript">
-                <pre>const ANIMATION_CONFIG = {
+Smooth, staggered animations for enhanced user experience:
+
+```javascript
+// Animation configuration
+const ANIMATION_CONFIG = {
   duration: {
     fast: 300,
     normal: 800,
@@ -558,35 +255,31 @@ const saudi_arabia_polygon = [
     smooth: d3.easeCubicInOut
   },
   stagger: 100  // Delay between elements
-};</pre>
-            </div>
+};
 
-            <h4>Staggered Animation Pattern</h4>
-            <div class="code-block" data-lang="javascript">
-                <pre>elements.transition()
+// Staggered animation pattern
+elements.transition()
   .duration(ANIMATION_CONFIG.duration.normal)
   .delay((d, i) => i * ANIMATION_CONFIG.stagger)
   .ease(ANIMATION_CONFIG.easing.bounce)
   .attr("opacity", 1)
-  .attr("transform", "scale(1)");</pre>
-            </div>
-        </section>
+  .attr("transform", "scale(1)");
+```
 
-        <section id="chart-implementation" class="section">
-            <h2>6. Chart Implementation Guide</h2>
+## 📊 Chart Implementation
 
-            <h3>1. Stacked Bar Chart (Step 2)</h3>
+### 1. Stacked Bar Chart (Population Composition)
 
-            <h4>Purpose</h4>
-            <p>Visualizes population composition changes over time (Citizens, Residents, Visitors).</p>
+**Purpose**: Visualizes population composition changes over time (Citizens, Residents, Visitors)
 
-            <h4>Implementation</h4>
-            <div class="code-block" data-lang="javascript">
-                <pre>function renderComposition(svg, width, height) {
-  const margin = {top: 40, right: 40, bottom: 60, left: 80};
-  const w = width - margin.left - margin.right;
-  const h = height - margin.top - margin.bottom;
-  
+**Key Features**:
+- Animated stacked bars
+- Color-coded categories
+- Interactive tooltips
+- Smooth transitions
+
+```javascript
+function renderComposition(svg, width, height) {
   // Data preparation
   const years = Object.keys(data.composition);
   const keys = ["مواطنون", "مقيمون", "زوار"];
@@ -596,164 +289,65 @@ const saudi_arabia_polygon = [
     ...data.composition[y]
   })));
   
-  // Scales
-  const x = d3.scaleBand()
-    .domain(years)
-    .range([0, w])
-    .padding(0.3);
-    
-  const y = d3.scaleLinear()
-    .domain([0, d3.max(stackedData[stackedData.length - 1], d => d[1]) * 1.1])
-    .range([h, 0]);
-    
-  const colors = d3.scaleOrdinal()
-    .domain(keys)
-    .range(["#1d4289", "#0a965f", "#c99c2d"]);
-  
-  // Render bars with animation
-  const groups = svg.selectAll("g.layer")
-    .data(stackedData)
-    .enter().append("g")
-    .attr("class", "layer")
-    .attr("fill", d => colors(d.key));
-    
-  groups.selectAll("rect")
-    .data(d => d)
-    .enter().append("rect")
-    .attr("x", d => x(d.data.year))
-    .attr("y", h)
-    .attr("height", 0)
-    .attr("width", x.bandwidth())
-    .transition()
-    .duration(1000)
-    .delay((d, i) => i * 100)
-    .ease(d3.easeBounceOut)
-    .attr("y", d => y(d[1]))
-    .attr("height", d => y(d[0]) - y(d[1]));
-}</pre>
-            </div>
+  // Scales and rendering logic
+  // ... implementation details
+}
+```
 
-            <h3>2. Population Pyramid (Step 3)</h3>
+### 2. Population Pyramid (Age/Gender Distribution)
 
-            <h4>Purpose</h4>
-            <p>Shows age and gender distribution in horizontal bar format.</p>
+**Purpose**: Shows age and gender distribution in horizontal bar format
 
-            <h4>Key Features</h4>
-            <ul>
-                <li>Males on right (positive values)</li>
-                <li>Females on left (negative values)</li>
-                <li>Age groups as categories</li>
-                <li>Symmetrical layout with center gap</li>
-            </ul>
+**Key Features**:
+- Males on right (positive values)
+- Females on left (negative values)
+- Age groups as categories
+- Symmetrical layout with center gap
 
-            <h4>Implementation Highlights</h4>
-            <div class="code-block" data-lang="javascript">
-                <pre>function renderAgeGender(svg, width, height) {
-  // Data transformation
-  const males = data.ageGender["ذكور"];
-  const females = data.ageGender["إناث"].map(d => -d); // Negative for left side
-  
-  // Scales
-  const y = d3.scaleBand()
-    .domain(data.ageGender["الفئات"].reverse())
-    .range([0, height])
-    .paddingInner(0.4);
-    
-  const x = d3.scaleLinear()
-    .domain([-10, 10])
-    .range([0, width]);
-  
-  // Center gap for labels
-  const centerGapWidth = 50;
-  const center = x(0);
-  
-  // Female bars (left side)
-  svg.selectAll(".female-bar")
-    .data(females)
-    .enter().append("rect")
-    .attr("class", "female-bar")
-    .attr("x", d => x(d))
-    .attr("y", (d, i) => y(sortedAges[i]))
-    .attr("width", d => center - centerGapWidth/2 - x(d))
-    .attr("height", y.bandwidth())
-    .attr("fill", "#c99c2d");
-}</pre>
-            </div>
+### 3. Geographic Map (Regional Distribution)
 
-            <h3>3. Geographic Map (Step 4)</h3>
+**Purpose**: Interactive map showing population distribution across Saudi regions
 
-            <h4>Purpose</h4>
-            <p>Interactive map showing population distribution across Saudi regions.</p>
+**Components**:
+- **Base map**: SVG path from precise coordinate data
+- **Choropleth regions**: Color-coded by population density
+- **City markers**: Proportional circles for major cities
+- **Interactive tooltips**: Hover information with regional stats
 
-            <h4>Components</h4>
-            <ul>
-                <li><strong>Base map:</strong> SVG path from coordinate data</li>
-                <li><strong>Choropleth regions:</strong> Color-coded by population</li>
-                <li><strong>City markers:</strong> Proportional circles</li>
-                <li><strong>Interactive tooltips:</strong> Hover information</li>
-            </ul>
+### 4. Services Comparison (Infrastructure Analysis)
 
-            <h4>Coordinate Projection</h4>
-            <div class="code-block" data-lang="javascript">
-                <pre>function setupMapProjection(width, height) {
-  const saudiBounds = {
-    north: 32.2,
-    south: 16.3,
-    east: 55.7,
-    west: 34.5
-  };
-  
-  const xScale = d3.scaleLinear()
-    .domain([saudiBounds.west, saudiBounds.east])
-    .range([padding/2, width - padding/2]);
-    
-  const yScale = d3.scaleLinear()
-    .domain([saudiBounds.south, saudiBounds.north])
-    .range([height - padding/2, padding/2]);
-    
-  return {xScale, yScale};
-}</pre>
-            </div>
+**Purpose**: Multi-series bar chart comparing population vs. infrastructure
 
-            <h3>4. Services Comparison (Step 5)</h3>
+**Features**:
+- Three data series: Population, Schools, Hospitals
+- Normalized data for visual comparison
+- Regional breakdown
+- Gap analysis visualization
 
-            <h4>Purpose</h4>
-            <p>Multi-series bar chart comparing population vs. infrastructure (schools, hospitals).</p>
+### 5. Strategic Summary (Recommendations Dashboard)
 
-            <h4>Data Normalization</h4>
-            <div class="code-block" data-lang="javascript">
-                <pre>function normalizeServicesData(rawData) {
-  return Object.entries(rawData).map(([region, d]) => ({
-    region,
-    سكان: d.السكان * 10,        // Scale for visibility
-    مدارس: d.مدارس / 150,       // Normalize to similar range
-    مستشفيات: d.مستشفيات * 1     // Keep original scale
-  }));
-}</pre>
-            </div>
-        </section>
+**Purpose**: Circular progress indicators with final recommendations
 
-        <section id="styling-system" class="section">
-            <h2>7. Styling System</h2>
+**Components**:
+- Animated progress circles
+- Key performance indicators
+- Strategic recommendations
+- Call-to-action elements
 
-            <h3>CSS Architecture</h3>
+## 🎨 Styling System
 
-            <h4>Design Tokens</h4>
-            <div class="code-block" data-lang="css">
-                <pre>:root {
-  /* Colors */
+### Design System
+
+The dashboard implements a comprehensive design system with:
+
+```css
+:root {
+  /* Color Palette */
   --primary-blue: #1d4289;
   --secondary-green: #0a965f;
   --accent-gold: #c99c2d;
   --text-dark: #222;
   --bg-light: #f0f8ff;
-  
-  /* Spacing */
-  --spacing-xs: 8px;
-  --spacing-sm: 16px;
-  --spacing-md: 24px;
-  --spacing-lg: 40px;
-  --spacing-xl: 80px;
   
   /* Typography */
   --font-family: 'Segoe UI', Tahoma, sans-serif;
@@ -761,80 +355,57 @@ const saudi_arabia_polygon = [
   --font-size-md: 16px;
   --font-size-lg: 24px;
   
-  /* Animations */
+  /* Spacing System */
+  --spacing-xs: 8px;
+  --spacing-sm: 16px;
+  --spacing-md: 24px;
+  --spacing-lg: 40px;
+  --spacing-xl: 80px;
+  
+  /* Animation Timing */
   --transition-fast: 0.2s ease;
   --transition-normal: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   --transition-slow: 0.8s ease-out;
-}</pre>
-            </div>
+}
+```
 
-            <h4>Glassmorphism Effects</h4>
-            <div class="code-block" data-lang="css">
-                <pre>.glass-effect {
+### Glassmorphism Effects
+
+Modern glass-like effects throughout the interface:
+
+```css
+.glass-effect {
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(10px);
   border-radius: 20px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.2);
-}</pre>
-            </div>
-
-            <h4>Animation Keyframes</h4>
-            <div class="code-block" data-lang="css">
-                <pre>@keyframes slideInFromTop {
-  0% {
-    transform: translateY(-50px);
-    opacity: 0;
-  }
-  100% {
-    transform: translateY(0);
-    opacity: 1;
-  }
 }
+```
 
-@keyframes fadeInScale {
-  0% {
-    transform: scale(0.8);
-    opacity: 0;
-  }
-  100% {
-    transform: scale(1);
-    opacity: 1;
-  }
-}</pre>
-            </div>
+### RTL (Right-to-Left) Support
 
-            <h3>RTL (Right-to-Left) Support</h3>
+Full Arabic language support with proper text direction:
 
-            <h4>HTML Configuration</h4>
-            <div class="code-block" data-lang="html">
-                <pre>&lt;html lang="ar" dir="rtl"&gt;</pre>
-            </div>
+```html
+<html lang="ar" dir="rtl">
+```
 
-            <h4>CSS RTL Adjustments</h4>
-            <div class="code-block" data-lang="css">
-                <pre>/* Text alignment */
+```css
 .rtl-text {
   text-align: right;
   direction: rtl;
 }
+```
 
-/* Margin/padding adjustments */
-.rtl-spacing {
-  margin-right: auto;
-  margin-left: 1rem;
-}</pre>
-            </div>
-        </section>
+## 🖱 Interactive Features
 
-        <section id="interactive-features" class="section">
-            <h2>8. Interactive Features</h2>
+### Tooltip System
 
-            <h3>Tooltip System</h3>
+Advanced tooltip system with smooth animations:
 
-            <h4>Tooltip Creation</h4>
-            <div class="code-block" data-lang="javascript">
-                <pre>function createTooltip() {
+```javascript
+function createTooltip() {
   return d3.select("body").append("div")
     .attr("class", "tooltip")
     .style("position", "absolute")
@@ -842,212 +413,91 @@ const saudi_arabia_polygon = [
     .style("background", "rgba(0, 0, 0, 0.9)")
     .style("color", "white")
     .style("border-radius", "8px")
-    .style("font-size", "14px")
     .style("pointer-events", "none")
     .style("opacity", 0);
-}</pre>
-            </div>
+}
 
-            <h4>Tooltip Usage Pattern</h4>
-            <div class="code-block" data-lang="javascript">
-                <pre>element.on("mouseover", function(event, d) {
+// Usage pattern
+element.on("mouseover", function(event, d) {
   tooltip
-    .html(`&lt;strong&gt;${d.name}&lt;/strong&gt;&lt;br&gt;${d.value} million`)
+    .html(`<strong>${d.name}</strong><br>${d.value} million`)
     .style("left", (event.pageX + 10) + "px")
     .style("top", (event.pageY - 40) + "px")
     .transition()
     .duration(200)
     .style("opacity", 1);
-})
-.on("mouseout", function() {
-  tooltip.transition()
-    .duration(300)
-    .style("opacity", 0);
-});</pre>
-            </div>
+});
+```
 
-            <h3>Hover Effects</h3>
+### Hover Effects
 
-            <h4>Scale Animation</h4>
-            <div class="code-block" data-lang="javascript">
-                <pre>element.on("mouseover", function() {
+Smooth scale and color transitions:
+
+```javascript
+element.on("mouseover", function() {
   d3.select(this)
     .transition()
     .duration(200)
     .attr("transform", "scale(1.1)")
     .style("filter", "brightness(1.2)");
-})
-.on("mouseout", function() {
-  d3.select(this)
-    .transition()
-    .duration(200)
-    .attr("transform", "scale(1)")
-    .style("filter", "brightness(1)");
-});</pre>
-            </div>
-        </section>
+});
+```
 
-        <section id="performance" class="section">
-            <h2>9. Performance Optimization</h2>
+## ⚡ Performance
 
-            <h3>Chart Rendering Optimization</h3>
+### Optimization Strategies
 
-            <h4>Efficient Updates</h4>
-            <div class="code-block" data-lang="javascript">
-                <pre>function optimizedUpdate(selection, data) {
-  // Join pattern for efficient DOM updates
-  const update = selection.selectAll(".element")
-    .data(data, d => d.id); // Key function for object constancy
-    
-  // Remove old elements
-  update.exit()
-    .transition()
-    .duration(300)
-    .style("opacity", 0)
-    .remove();
-    
-  // Add new elements
-  const enter = update.enter()
-    .append("rect")
-    .attr("class", "element")
-    .style("opacity", 0);
-    
-  // Update existing + new elements
-  update.merge(enter)
-    .transition()
-    .duration(500)
-    .style("opacity", 1)
-    .attr("x", d => xScale(d.value));
-}</pre>
-            </div>
+1. **Efficient DOM Updates**: Using D3's join pattern for optimal rendering
+2. **Hardware Acceleration**: CSS transforms and GPU layers
+3. **Memory Management**: Proper cleanup of event listeners and DOM elements
+4. **Batched Updates**: RequestAnimationFrame for smooth animations
 
-            <h4>Memory Management</h4>
-            <div class="code-block" data-lang="javascript">
-                <pre>function cleanup() {
-  // Remove event listeners
-  window.removeEventListener("resize", handleResize);
-  
-  // Clear D3 selections
-  d3.select("#chart").selectAll("*").remove();
-  
-  // Remove tooltips
-  d3.selectAll(".tooltip").remove();
-}</pre>
-            </div>
+### Performance Monitoring
 
-            <h3>Animation Performance</h3>
+```javascript
+function measurePerformance(chartStep) {
+  const start = performance.now();
+  drawChart(chartStep);
+  const end = performance.now();
+  console.log(`Chart ${chartStep} rendered in ${end - start}ms`);
+}
+```
 
-            <h4>Hardware Acceleration</h4>
-            <div class="code-block" data-lang="css">
-                <pre>.animated-element {
-  transform: translateZ(0); /* Force GPU layer */
-  will-change: transform, opacity; /* Hint to browser */
-}</pre>
-            </div>
+## 📚 API Reference
 
-            <h4>Batched DOM Updates</h4>
-            <div class="code-block" data-lang="javascript">
-                <pre>function batchedUpdate(elements, updates) {
-  // Use requestAnimationFrame for smooth updates
-  requestAnimationFrame(() => {
-    elements.forEach((element, index) => {
-      element.style.transform = updates[index].transform;
-      element.style.opacity = updates[index].opacity;
-    });
-  });
-}</pre>
-            </div>
-        </section>
+### Core Functions
 
-        <section id="api-reference" class="section">
-            <h2>10. API Reference</h2>
+#### `init()`
+Initializes the application and sets up scroll listeners.
 
-            <h3>Core Functions</h3>
+#### `drawChart(step: number)`
+Main chart rendering function.
+- **Parameters**: `step` (1-6) - Chart step number
+- **Returns**: `void`
 
-            <h4>init()</h4>
-            <p>Initializes the application, sets up scroll listeners, and renders the first chart.</p>
-            <div class="code-block" data-lang="javascript">
-                <pre>function init() {
-  scroller.setup({
-    step: ".step",
-    offset: 0.5,
-    debug: false
-  }).onStepEnter(handleStep);
-  
-  drawChart(1);
-  window.addEventListener("resize", handleResize);
-}</pre>
-            </div>
+#### `handleStep(response: Object)`
+Scroll event callback function.
+- **Parameters**: `response.index`, `response.element`
 
-            <h4>drawChart(step: number)</h4>
-            <p>Main chart rendering function that dispatches to specific chart implementations.</p>
-            <p><strong>Parameters:</strong></p>
-            <ul>
-                <li><code>step</code> (number): Chart step number (1-6)</li>
-            </ul>
-            <p><strong>Returns:</strong> <code>void</code></p>
+#### `createTooltip(): D3Selection`
+Creates reusable tooltip element.
 
-            <h4>handleStep(response: Object)</h4>
-            <p>Callback function triggered by scroll events.</p>
-            <p><strong>Parameters:</strong></p>
-            <ul>
-                <li><code>response.index</code> (number): Step index</li>
-                <li><code>response.element</code> (HTMLElement): Triggered element</li>
-            </ul>
+### Chart Functions
 
-            <h4>createTooltip(): D3Selection</h4>
-            <p>Creates and returns a reusable tooltip element.</p>
-            <p><strong>Returns:</strong> D3 selection object</p>
+| Function | Purpose | Parameters |
+|----------|---------|------------|
+| `renderComposition()` | Stacked bar chart | svg, width, height |
+| `renderAgeGender()` | Population pyramid | svg, width, height |
+| `renderGeographic()` | Interactive map | svg, width, height |
+| `renderServices()` | Services comparison | svg, width, height |
 
-            <h3>Chart-Specific Functions</h3>
+## 🛠 Development Guidelines
 
-            <div class="table-container">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Function</th>
-                            <th>Purpose</th>
-                            <th>Parameters</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>renderComposition()</td>
-                            <td>Stacked bar chart for population composition</td>
-                            <td>svg, width, height</td>
-                        </tr>
-                        <tr>
-                            <td>renderAgeGender()</td>
-                            <td>Population pyramid for age/gender distribution</td>
-                            <td>svg, width, height</td>
-                        </tr>
-                        <tr>
-                            <td>renderGeographic()</td>
-                            <td>Interactive map with regional data</td>
-                            <td>svg, width, height</td>
-                        </tr>
-                        <tr>
-                            <td>renderServices()</td>
-                            <td>Multi-series bar chart for services comparison</td>
-                            <td>svg, width, height</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </section>
+### Code Organization
 
-        <section id="development-guidelines" class="section">
-            <h2>11. Development Guidelines</h2>
-
-            <h3>Code Organization</h3>
-
-            <h4>File Structure Standards</h4>
-            <div class="code-block" data-lang="javascript">
-                <pre>// 1. Constants and configuration
-const CONFIG = {
-  animation: { duration: 800 },
-  colors: { primary: "#1d4289" }
-};
+```javascript
+// 1. Constants and configuration
+const CONFIG = { /* ... */ };
 
 // 2. Data definitions
 const data = { /* ... */ };
@@ -1062,83 +512,38 @@ function renderComposition() { /* ... */ }
 function handleStep() { /* ... */ }
 
 // 6. Initialization
-function init() { /* ... */ }</pre>
-            </div>
+function init() { /* ... */ }
+```
 
-            <h4>Naming Conventions</h4>
-            <ul>
-                <li><strong>Functions:</strong> camelCase (<code>drawChart</code>, <code>handleStep</code>)</li>
-                <li><strong>Constants:</strong> UPPER_SNAKE_CASE (<code>ANIMATION_CONFIG</code>)</li>
-                <li><strong>Variables:</strong> camelCase (<code>currentChart</code>, <code>tooltipElement</code>)</li>
-                <li><strong>CSS Classes:</strong> kebab-case (<code>.chart-element</code>, <code>.is-active</code>)</li>
-            </ul>
+### Naming Conventions
 
-            <h3>Error Handling</h3>
+- **Functions**: camelCase (`drawChart`, `handleStep`)
+- **Constants**: UPPER_SNAKE_CASE (`ANIMATION_CONFIG`)
+- **Variables**: camelCase (`currentChart`, `tooltipElement`)
+- **CSS Classes**: kebab-case (`.chart-element`, `.is-active`)
 
-            <h4>Graceful Degradation</h4>
-            <div class="code-block" data-lang="javascript">
-                <pre>function safeDrawChart(step) {
+### Error Handling
+
+```javascript
+function safeDrawChart(step) {
   try {
     drawChart(step);
   } catch (error) {
     console.error('Chart rendering failed:', error);
-    // Fallback to static content
     showFallbackContent(step);
   }
-}</pre>
-            </div>
+}
+```
 
-            <h4>Data Validation</h4>
-            <div class="code-block" data-lang="javascript">
-                <pre>function validateData(data) {
-  if (!data || typeof data !== 'object') {
-    throw new Error('Invalid data format');
-  }
-  
-  const requiredKeys = ['composition', 'ageGender', 'regions'];
-  requiredKeys.forEach(key => {
-    if (!(key in data)) {
-      throw new Error(`Missing required data key: ${key}`);
-    }
-  });
-}</pre>
-            </div>
+## 🐛 Troubleshooting
 
-            <h3>Testing Considerations</h3>
+### Common Issues
 
-            <h4>Unit Test Structure</h4>
-            <div class="code-block" data-lang="javascript">
-                <pre>// Test data validation
-describe('Data Validation', () => {
-  test('should validate required data structure', () => {
-    expect(() => validateData(validData)).not.toThrow();
-    expect(() => validateData({})).toThrow();
-  });
-});
-
-// Test chart rendering
-describe('Chart Rendering', () => {
-  test('should render composition chart', () => {
-    const svg = d3.select(document.createElement('svg'));
-    expect(() => renderComposition(svg, 800, 600)).not.toThrow();
-  });
-});</pre>
-            </div>
-        </section>
-
-        <section id="troubleshooting" class="section">
-            <h2>12. Troubleshooting</h2>
-
-            <h3>Common Issues</h3>
-
-            <h4>Charts Not Rendering</h4>
-            <div class="alert alert-warning">
-                <strong>Symptoms:</strong> Empty chart container, no error messages<br>
-                <strong>Causes:</strong> Missing D3.js or Scrollama.js libraries, Invalid data structure, Incorrect SVG dimensions
-            </div>
-
-            <div class="code-block" data-lang="javascript">
-                <pre>// Check library availability
+#### Charts Not Rendering
+**Symptoms**: Empty chart container
+**Solutions**:
+```javascript
+// Check library availability
 if (typeof d3 === 'undefined') {
   console.error('D3.js not loaded');
   return;
@@ -1149,180 +554,82 @@ const container = d3.select("#chart");
 const rect = container.node().getBoundingClientRect();
 if (rect.width === 0 || rect.height === 0) {
   console.error('Container has no dimensions');
-  return;
-}</pre>
-            </div>
+}
+```
 
-            <h4>Scroll Events Not Triggering</h4>
-            <div class="alert alert-warning">
-                <strong>Symptoms:</strong> Charts don't change on scroll<br>
-                <strong>Causes:</strong> Incorrect step selector, Missing Scrollama initialization, CSS positioning issues
-            </div>
-
-            <div class="code-block" data-lang="javascript">
-                <pre>// Debug scroll setup
+#### Scroll Events Not Triggering
+**Symptoms**: Charts don't change on scroll
+**Solutions**:
+```javascript
+// Enable debug mode
 scroller.setup({
   step: ".step",
   offset: 0.5,
-  debug: true  // Enable debug mode
-}).onStepEnter(response => {
-  console.log('Step entered:', response.index);
-  handleStep(response);
-});</pre>
-            </div>
+  debug: true  // Shows step boundaries
+});
+```
 
-            <h4>Animation Performance Issues</h4>
-            <div class="alert alert-info">
-                <strong>Symptoms:</strong> Choppy animations, browser lag<br>
-                <strong>Causes:</strong> Too many simultaneous transitions, Complex CSS transforms, Large dataset rendering
-            </div>
-
-            <div class="code-block" data-lang="javascript">
-                <pre>// Reduce animation complexity
+#### Performance Issues
+**Solutions**:
+```javascript
+// Reduce motion for users who prefer it
 const REDUCED_MOTION = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 function optimizedTransition(selection) {
-  if (REDUCED_MOTION) {
-    return selection.duration(0); // Skip animations
-  }
-  return selection.duration(800);
-}</pre>
-            </div>
+  return REDUCED_MOTION ? selection.duration(0) : selection.duration(800);
+}
+```
 
-            <h3>Browser Compatibility</h3>
+### Browser Compatibility
 
-            <h4>Supported Features</h4>
-            <div class="table-container">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Feature</th>
-                            <th>Chrome</th>
-                            <th>Firefox</th>
-                            <th>Safari</th>
-                            <th>Edge</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>CSS Grid</td>
-                            <td>✅ 57+</td>
-                            <td>✅ 52+</td>
-                            <td>✅ 10.1+</td>
-                            <td>✅ 16+</td>
-                        </tr>
-                        <tr>
-                            <td>Backdrop Filter</td>
-                            <td>✅ 76+</td>
-                            <td>❌</td>
-                            <td>✅ 9+</td>
-                            <td>✅ 17+</td>
-                        </tr>
-                        <tr>
-                            <td>Intersection Observer</td>
-                            <td>✅ 51+</td>
-                            <td>✅ 55+</td>
-                            <td>✅ 12.1+</td>
-                            <td>✅ 15+</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+| Feature | Chrome | Firefox | Safari | Edge |
+|---------|--------|---------|--------|------|
+| CSS Grid | ✅ 57+ | ✅ 52+ | ✅ 10.1+ | ✅ 16+ |
+| Backdrop Filter | ✅ 76+ | ❌ | ✅ 9+ | ✅ 17+ |
+| Intersection Observer | ✅ 51+ | ✅ 55+ | ✅ 12.1+ | ✅ 15+ |
 
-            <h4>Polyfills</h4>
-            <div class="code-block" data-lang="javascript">
-                <pre>// Intersection Observer polyfill for older browsers
-if (!('IntersectionObserver' in window)) {
-  const script = document.createElement('script');
-  script.src = 'https://polyfill.io/v3/polyfill.min.js?features=IntersectionObserver';
-  document.head.appendChild(script);
-}</pre>
-            </div>
+## 🤝 Contributing
 
-            <h3>Performance Monitoring</h3>
+We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.md) for details.
 
-            <h4>Metrics Collection</h4>
-            <div class="code-block" data-lang="javascript">
-                <pre>function measurePerformance(chartStep) {
-  const start = performance.now();
-  
-  drawChart(chartStep);
-  
-  const end = performance.now();
-  console.log(`Chart ${chartStep} rendered in ${end - start}ms`);
-  
-  // Track memory usage
-  if (performance.memory) {
-    console.log('Memory usage:', performance.memory.usedJSHeapSize);
-  }
-}</pre>
-            </div>
-        </section>
+### Development Setup
 
-        <div class="section">
-            <h2>Conclusion</h2>
-            <p>This documentation provides a comprehensive guide to understanding and maintaining the Saudi Arabia Demographics Dashboard. The codebase demonstrates modern web development practices including:</p>
-            
-            <ul>
-                <li><strong>Component-based architecture</strong></li>
-                <li><strong>Data-driven visualization</strong></li>
-                <li><strong>Progressive enhancement</strong></li>
-                <li><strong>Responsive design principles</strong></li>
-                <li><strong>Performance optimization</strong></li>
-                <li><strong>Accessibility considerations</strong></li>
-            </ul>
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feature-name`
+3. Make your changes
+4. Test thoroughly
+5. Submit a pull request
 
-            <p>For additional support or feature requests, please refer to the project repository or contact the development team.</p>
+### Code Style
 
-            <hr style="margin: 40px 0; border: none; border-top: 2px solid #e9ecef;">
-            
-            <p style="text-align: center; color: #666; font-style: italic;">
-                <em>Last updated: December 2024</em><br>
-                <em>Version: 1.0.0</em>
-            </p>
-        </div>
+- Use ESLint and Prettier for code formatting
+- Follow the existing naming conventions
+- Add comments for complex logic
+- Write meaningful commit messages
 
-        <a href="#" class="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;">↑ Top</a>
-    </div>
+## 📄 License
 
-    <script>
-        // Smooth scrolling for internal links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-        // Show/hide back to top button
-        window.addEventListener('scroll', function() {
-            const backToTop = document.querySelector('.back-to-top');
-            if (window.pageYOffset > 300) {
-                backToTop.style.display = 'block';
-            } else {
-                backToTop.style.display = 'none';
-            }
-        });
+## 🙏 Acknowledgments
 
-        // Copy code functionality
-        document.querySelectorAll('.code-block').forEach(block => {
-            block.addEventListener('click', function() {
-                const code = this.querySelector('pre').textContent;
-                navigator.clipboard.writeText(code).then(() => {
-                    const originalLang = this.getAttribute('data-lang');
-                    this.setAttribute('data-lang', 'Copied!');
-                    setTimeout(() => {
-                        this.setAttribute('data-lang', originalLang);
-                    }, 1000);
-                });
-            });
-        });
-    </script>
-</body>
-</html>
+- **D3.js Community** for the powerful visualization library
+- **Scrollama.js** for smooth scroll interactions
+- **Saudi Arabia Vision 2030** for inspiring the demographic focus
+- **Contributors** who helped improve this project
+
+## 📞 Support
+
+- **Issues**: [GitHub Issues](https://github.com/your-username/saudi-demographics-dashboard/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/your-username/saudi-demographics-dashboard/discussions)
+- **Email**: your-email@example.com
+
+---
+
+<div align="center">
+
+**Built with ❤️ for Saudi Arabia's Digital Transformation**
+
+[⭐ Star this repo](https://github.com/your-username/saudi-demographics-dashboard) | [🐛 Report Bug](https://github.com/your-username/saudi-demographics-dashboard/issues) | [💡 Request Feature](https://github.com/your-username/saudi-demographics-dashboard/issues)
+
+</div>
