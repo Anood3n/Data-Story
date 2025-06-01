@@ -16,7 +16,7 @@
 
 ## 🚀 Live Demo
 
-[View Live Dashboard](https://your-demo-link.com) | [Documentation](https://your-docs-link.com)
+[View Live Dashboard](https://github.com/Anood3n/Data-Story/blob/main/index.html)
 
 ## 📋 Table of Contents
 
@@ -33,7 +33,6 @@
 - [Development Guidelines](#-development-guidelines)
 - [Troubleshooting](#-troubleshooting)
 - [Contributing](#-contributing)
-- [License](#-license)
 
 ## 🛠 Technology Stack
 
