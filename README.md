@@ -613,6 +613,6 @@ We welcome contributions!.
 <div align="center">
 
 
-[⭐ Star this repo](https://github.com/Anood3n/saudi-demographics-dashboard) | [🐛 Report Bug](https://github.com/Anood3n/saudi-demographics-dashboard/issues) | [💡 Request Feature](https://github.com/Anood3n/saudi-demographics-dashboard/issues)
+[⭐ Star this repo](https://github.com/Anood3n/Data-Story) | [🐛 Report Bug](https://github.com/Anood3n/Data-Story/issues) | [💡 Request Feature](https://github.com/Anood3n/Data-Story/issues)
 
 </div>
