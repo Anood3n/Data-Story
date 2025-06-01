@@ -2,7 +2,6 @@
 
 ![Dashboard Preview](https://img.shields.io/badge/Status-Active-brightgreen)
 ![Version](https://img.shields.io/badge/Version-1.0.0-blue)
-![License](https://img.shields.io/badge/License-MIT-yellow)
 
 > An interactive, scroll-driven data visualization dashboard presenting Saudi Arabia's demographic data through multiple chart types and animations.
 
@@ -95,21 +94,15 @@ The project uses these external libraries via CDN:
 ```
 saudi-demographics-dashboard/
 ├── index.html              # Main HTML document
-├── README.md               # Project documentation
-├── LICENSE                 # MIT License
-├── docs/                   # Additional documentation
-│   ├── API.md             # API documentation
-│   └── CONTRIBUTING.md    # Contributing guidelines
-├── assets/                 # Static assets
-│   ├── images/            # Screenshots and images
-│   └── data/              # Data files
-├── src/                   # Source code (if separated)
-│   ├── styles/            # CSS files
-│   ├── scripts/           # JavaScript modules
-│   └── data/              # Data processing scripts
-└── examples/              # Usage examples
-    ├── basic-usage.html
-    └── custom-charts.html
+├── styles/
+│   └── embedded.css        # Embedded in style tags
+├── scripts/
+│   ├── data.js            # Embedded demographic data
+│   ├── charts.js          # Embedded Chart rendering functions
+│   └── interactions.js    # Embedded Event handlers
+└── assets/
+    └── polygon-data.js    # Embedded Saudi Arabia border coordinates
+
 ```
 
 ## 🗄 Data Architecture
@@ -590,7 +583,7 @@ function optimizedTransition(selection) {
 
 ## 🤝 Contributing
 
-We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.md) for details.
+We welcome contributions!.
 
 ### Development Setup
 
@@ -607,22 +600,14 @@ We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.
 - Add comments for complex logic
 - Write meaningful commit messages
 
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
 ## 🙏 Acknowledgments
 
 - **D3.js Community** for the powerful visualization library
 - **Scrollama.js** for smooth scroll interactions
 - **Saudi Arabia Vision 2030** for inspiring the demographic focus
-- **Contributors** who helped improve this project
 
 ## 📞 Support
-
-- **Issues**: [GitHub Issues](https://github.com/your-username/saudi-demographics-dashboard/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/your-username/saudi-demographics-dashboard/discussions)
-- **Email**: your-email@example.com
+- **Email**:alhenakiaa@gmail.com
 
 ---
 
@@ -630,6 +615,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 **Built with ❤️ for Saudi Arabia's Digital Transformation**
 
-[⭐ Star this repo](https://github.com/your-username/saudi-demographics-dashboard) | [🐛 Report Bug](https://github.com/your-username/saudi-demographics-dashboard/issues) | [💡 Request Feature](https://github.com/your-username/saudi-demographics-dashboard/issues)
+[⭐ Star this repo](https://github.com/your-username/saudi-demographics-dashboard) | [🐛 Report Bug](https://github.com/Anood3n/saudi-demographics-dashboard/issues) | [💡 Request Feature](https://github.com/Anood3n/saudi-demographics-dashboard/issues)
 
 </div>
