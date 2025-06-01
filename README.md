@@ -16,7 +16,7 @@
 
 ## 🚀 Live Demo
 
-[View Live Dashboard](https://github.com/Anood3n/Data-Story/blob/main/index.html)
+[View Live Dashboard](https://anood3n.github.io/Data-Story/)
 
 ## 📋 Table of Contents
 
